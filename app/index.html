@@ -24,7 +24,7 @@
 <body unresolved fullbleed layout vertical>
   <template is="auto-binding" id="app">
 
-    <core-drawer-panel drawerWidth="150px">
+    <core-drawer-panel drawerWidth="150px" narrow="{{menuVisible}}">
 
       <!-- Drawer -->
       <core-header-panel drawer mode="seamed">
@@ -46,8 +46,20 @@
 
       <!-- Main -->
       <core-header-panel main>
-          <core-icon-button icon="menu" core-drawer-toggle></core-icon-button>
           <div layout vertical>
+              <template if="{{menuVisible}}">
+                  <div horizontal layout wrap>
+                      <div><core-item label=">_blog"></core-item></div>
+                      <div><core-item label="Projects"></core-item></div>
+                      <div><core-item label="Dashboard"></core-item></div>
+                      <div><core-item label="Reading List"></core-item></div>
+                      <style>
+                          core-item {
+                              padding: 5px;
+                          }
+                      </style>
+                  </div>
+              </template>
 
 
             <!-- Main Content -->
@@ -56,6 +68,9 @@
               <p>You now have</p>
               <yo-list></yo-list>
             </div>
+          </div>
+          <div layout horizontal>
+
           </div>
       </core-header-panel>
     </core-drawer-panel>
