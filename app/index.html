@@ -24,7 +24,7 @@
 <body unresolved fullbleed layout vertical>
   <template is="auto-binding" id="app">
 
-    <core-drawer-panel drawerWidth="150px" narrow="{{menuVisible}}">
+    <core-drawer-panel drawerWidth="150px" narrow="{{menuHidden}}">
 
       <!-- Drawer -->
       <core-header-panel drawer mode="seamed">
@@ -47,7 +47,7 @@
       <!-- Main -->
       <core-header-panel main>
           <div layout vertical>
-              <template if="{{menuVisible}}">
+              <template if="{{menuHidden}}">
                   <div horizontal layout wrap>
                       <div><core-item label=">_blog"></core-item></div>
                       <div><core-item label="Projects"></core-item></div>
@@ -61,16 +61,11 @@
                   </div>
               </template>
 
+              <rurri-article article="[[{title:'This is a new title', posted:'2015-04-11', body:'This is the body of the article'}]]"></rurri-article>
 
             <!-- Main Content -->
-            <div class="hero-unit">
-              <yo-greeting></yo-greeting>
-              <p>You now have</p>
-              <yo-list></yo-list>
-            </div>
-          </div>
-          <div layout horizontal>
 
+            <!-- -->
           </div>
       </core-header-panel>
     </core-drawer-panel>

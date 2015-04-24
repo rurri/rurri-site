@@ -1,0 +1,19 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="rurri-article" attributes="article">
+  <template>
+    <link rel="stylesheet" href="rurri-article.css">
+      <template bind="{{article}}">
+          <h1>{{title}}</h1>
+          <h6>{{posted}}</h6>
+          {{body}}
+      </template>
+  </template>
+  <script>
+    (function () {
+      Polymer({
+        // define element prototype here
+      });
+    })();
+  </script>
+</polymer-element>
