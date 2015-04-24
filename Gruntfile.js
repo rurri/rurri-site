@@ -39,6 +39,10 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/elements/{,*/}*.css'
         ],
         tasks: ['copy:styles', 'autoprefixer:server']
+      },
+      content: {
+        files: ['content/**/*.md'],
+        tasks: ['copy:content','m2j:local']
       }
     },
     autoprefixer: {
@@ -81,6 +85,7 @@ module.exports = function (grunt) {
         },
         src: [
           '.tmp/**/*.{css,html,js}',
+          '.tmp/content/**/*.{md,json}',
           '<%= yeoman.app %>/**/*.{css,html,js}'
         ]
       },
@@ -91,7 +96,8 @@ module.exports = function (grunt) {
           }
         },
         src: [
-          '<%= yeoman.dist %>/**/*.{css,html,js}',
+          '<%= yeoman.dist %>/**/*.{css,html,js,md,json}',
+          '<%= yeoman.dist %>/content/**/*.{md,json}',
           '!<%= yeoman.dist %>/bower_components/**/*'
         ]
       }
@@ -221,6 +227,19 @@ module.exports = function (grunt) {
           dest: '.tmp',
           src: ['{styles,elements}/{,*/}*.css']
         }]
+      },
+      content: {
+        files: [{
+          expand: true,
+          dot: true,
+          dest: '<%= yeoman.dist %>',
+          src: ['content/**']
+        }, {
+          expand: true,
+          dot: true,
+          dest: '.tmp',
+          src: ['content/**']
+        }]
       }
     },
     'wct-test': {
@@ -250,7 +269,32 @@ module.exports = function (grunt) {
           threshold: 80
         }
       }
+    },
+
+    m2j: {
+      dist: {
+        options: {
+          minify: true,
+          width: 0
+        },
+        files: {
+          '<%= yeoman.dist %>/content/articles.json': ['<%= yeoman.dist %>/content/articles/*.md']
+        }
+      },
+      local: {
+        options: {
+          minify: true,
+          width: 0
+        },
+        files: {
+          '.tmp/content/articles.json': ['.tmp/content/articles/*.md']
+        }
+      }
+
+
     }
+
+
   });
 
   grunt.registerTask('server', function (target) {
@@ -266,6 +310,8 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'copy:styles',
+      'copy:content',
+      'm2j:local',
       'autoprefixer:server',
       'browserSync:app',
       'watch'
@@ -276,9 +322,12 @@ module.exports = function (grunt) {
   grunt.registerTask('test:local', ['wct-test:local']);
   grunt.registerTask('test:remote', ['wct-test:remote']);
 
+  grunt.registerTask('sandbox', ['m2j:local']);
+
   grunt.registerTask('build', [
     'clean:dist',
     'copy',
+    'm2j',
     'useminPrepare',
     'imagemin',
     'concat',
