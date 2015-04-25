@@ -238,7 +238,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.dist %>',
           dest: '.tmp',
-          src: ['content/**']
+          src: ['content/**','images/**']
         }]
       }
     },
@@ -270,6 +270,16 @@ module.exports = function (grunt) {
         }
       }
     },
+
+
+    curl: {
+      'grab-avatar': {
+        src: 'http://graph.facebook.com/v2.3/533081609/picture?redirect=true&width=150&height=150',
+        dest: '<%= yeoman.dist %>/images/avatar.jpg'
+      }
+    },
+
+    //
 
     metalsmith: {
       articles: {
@@ -355,6 +365,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'copy:styles',
+      'curl',
       'copy:content',
       'metalsmith',
       'autoprefixer:server',
@@ -371,6 +382,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'curl',
     'copy',
     'metalsmith',
     'useminPrepare',
