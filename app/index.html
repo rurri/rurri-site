@@ -77,22 +77,35 @@
                          handleAs="json"
                          response="{{article}}">
               </core-ajax>
-              <template bind if="{{article}}" ref="article_wrapper"></template>
+              <template bind if="{{article}}" ref="article"></template>
             </template>
           </app-route>
           <app-route path="/blog">
             <template>
               <core-ajax id="myRequest"
                          auto
-                         url="/content/last5articles.json"
+                         url="/content/articles.json"
                          handleAs="json"
-                         response="{{recentArticles}}">
+                         response="{{allArticles}}">
               </core-ajax>
-              <template if="{{recentArticles}}">
-                <template bind="{{recentArticles.result[0] as article}}" ref="article_wrapper">
-                </template>
+              <template if="{{allArticles}}">
+                <rurri-article-list articles="{{allArticles.result}}"></rurri-article-list>
               </template>
             </template>
+            </template>
+
+            <!--<template>-->
+              <!--<core-ajax id="myRequest"-->
+                         <!--auto-->
+                         <!--url="/content/last5articles.json"-->
+                         <!--handleAs="json"-->
+                         <!--response="{{recentArticles}}">-->
+              <!--</core-ajax>-->
+              <!--<template if="{{recentArticles}}">-->
+                <!--<template bind="{{recentArticles.result[0] as article}}" ref="article">-->
+                <!--</template>-->
+              <!--</template>-->
+            <!--</template>-->
           </app-route>
         </app-router>
 
@@ -105,11 +118,14 @@
 
 </template>
 
-<template id="article_wrapper">
+<template id="article">
   <div horizontal center-justified layout>
-    <div>
-  <rurri-article article="{{article}}"></rurri-article>
-  <div id="disqus_thread"></div>
+    <div id="article_wrapper">
+      <rurri-article article="{{article}}"></rurri-article>
+      <template if="{{article.next}}">
+        <rurri-article-preview article="{{article.next}}"></rurri-article-preview>
+      </template>
+      <div id="disqus_thread"></div>
     </div>
   </div>
   <script type="text/javascript">

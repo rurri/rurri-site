@@ -30,6 +30,9 @@ body em {
 
 #disqus_thread {
     padding: 10px;
+}
+
+#article_wrapper {
     max-width: 600px;
 }
 

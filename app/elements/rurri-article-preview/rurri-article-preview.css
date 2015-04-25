@@ -1,0 +1,34 @@
+:host {
+  display: block;
+}
+
+.article-preview {
+    background-color: #E1F5FE;
+}
+
+.article-preview-card {
+    padding: 15px;
+}
+
+.article-preview .title {
+    font-family: AllerBold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0px;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.article-preview a:hover .title {
+}
+
+.article-preview p {
+    margin: 0px;
+}
+
+.article-preview a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.article-preview time {
+    font-size: .75em;
+}

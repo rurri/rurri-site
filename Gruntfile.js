@@ -313,6 +313,10 @@ module.exports = function (grunt) {
 
             },
 
+            "metalsmith-excerpts": {
+
+            },
+
             'metalsmith-writemetadata' : {
               pattern: ['**/*.md', '**/*.html'],
               bufferencoding: 'utf8',

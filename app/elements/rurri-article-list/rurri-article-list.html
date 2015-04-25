@@ -1,0 +1,34 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="rurri-article-list" attributes="articles page perPage">
+  <template>
+    <link rel="stylesheet" href="rurri-article-list.css">
+    <template repeat="{{article, i in articlesInView}}">
+      <script>console.log('{{i}}');</script>
+      <div class="summary_card {{i ? 'notFirst' : 'first'}}">
+        <rurri-article-preview article="{{article}}" height="0"></rurri-article-preview>
+      </div>
+    </template>
+  </template>
+  <script>
+    (function () {
+      Polymer({
+        articles:[],
+        page:1,
+        perPage:5,
+        articlesInView : [],
+
+        findSlice : function() {
+          var start = (this.page - 1) * this.perPage;
+          var end = start + this.perPage;
+          this.articlesInView = this.articles.slice(start, end);
+        },
+
+        ready: function(){
+          this.findSlice();
+        }
+
+      });
+    })();
+  </script>
+</polymer-element>

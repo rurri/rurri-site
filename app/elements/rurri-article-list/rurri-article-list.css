@@ -1,0 +1,8 @@
+:host {
+  display: block;
+}
+
+.summary_card.notFirst {
+    border-top : solid;
+    border-width: 1px;
+}
