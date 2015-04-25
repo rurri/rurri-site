@@ -1,7 +1,31 @@
+@font-face {
+    font-family: AllerRegular;
+    src: url(../fonts/Aller/Aller_Lt.ttf);
+    font-weight:400;
+}
+
+@font-face {
+    font-family: AllerBold;
+    src: url(../fonts/Aller/Aller_Bd.ttf);
+    font-weight:400;
+}
+
+@font-face {
+    font-family: AllerItalics;
+    src: url(../fonts/Aller/Aller_It.ttf);
+    font-weight:400;
+}
+
 body {
   background: #fafafa;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: AllerRegular, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333;
+}
+
+body em {
+    background: #fafafa;
+    font-family: AllerItalics, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
 }
 
 .hero-unit {

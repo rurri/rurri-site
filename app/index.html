@@ -19,62 +19,71 @@
   <!-- will be replaced with elements/elements.vulcanized.html -->
   <link rel="import" href="elements/elements.html">
   <!-- endreplace-->
+
 </head>
 
 <body unresolved fullbleed layout vertical>
-  <template is="auto-binding" id="app">
+<template is="auto-binding" id="app">
 
-    <core-drawer-panel drawerWidth="150px" narrow="{{menuHidden}}">
+  <core-drawer-panel drawerWidth="150px" narrow="{{menuHidden}}">
 
-      <!-- Drawer -->
-      <core-header-panel drawer mode="seamed">
+    <!-- Drawer -->
+    <core-header-panel drawer mode="seamed">
 
-        <!-- Drawer Toolbar -->
-          <div layout vertical center class="core-header">
-              <rurri-git-avatar username="rurri"></rurri-git-avatar>
+      <!-- Drawer Toolbar -->
+      <div layout vertical center class="core-header">
+        <rurri-git-avatar username="rurri"></rurri-git-avatar>
+      </div>
+
+      <!-- Drawer Content -->
+      <core-menu selected="0">
+        <core-item label=">_blog"></core-item>
+        <core-item label="Projects"></core-item>
+        <core-item label="Dashboard"></core-item>
+        <core-item label="Reading List"></core-item>
+      </core-menu>
+
+    </core-header-panel>
+
+    <!-- Main -->
+    <core-header-panel main>
+      <div layout vertical>
+        <template if="{{menuHidden}}">
+          <div horizontal layout wrap>
+            <div><core-item label=">_blog"></core-item></div>
+            <div><core-item label="Projects"></core-item></div>
+            <div><core-item label="Dashboard"></core-item></div>
+            <div><core-item label="Reading List"></core-item></div>
+            <style>
+              core-item {
+                padding: 5px;
+              }
+            </style>
           </div>
+        </template>
 
-        <!-- Drawer Content -->
-        <core-menu selected="0">
-          <core-item label=">_blog"></core-item>
-          <core-item label="Projects"></core-item>
-          <core-item label="Dashboard"></core-item>
-          <core-item label="Reading List"></core-item>
-        </core-menu>
 
-      </core-header-panel>
+        <core-ajax id="myRequest"
+                   auto
+                   url="/content/last5articles.json"
+                   handleAs="json"
+                   response="{{recentArticles}}">
+        </core-ajax>
 
-      <!-- Main -->
-      <core-header-panel main>
-          <div layout vertical>
-              <template if="{{menuHidden}}">
-                  <div horizontal layout wrap>
-                      <div><core-item label=">_blog"></core-item></div>
-                      <div><core-item label="Projects"></core-item></div>
-                      <div><core-item label="Dashboard"></core-item></div>
-                      <div><core-item label="Reading List"></core-item></div>
-                      <style>
-                          core-item {
-                              padding: 5px;
-                          }
-                      </style>
-                  </div>
-              </template>
+        <rurri-article article="{{recentArticles['result'][0]}}"></rurri-article>
 
-              <rurri-article article="[[{title:'This is a new title', posted:'2015-04-11', body:'This is the body of the article'}]]"></rurri-article>
+        <!-- Main Content -->
 
-            <!-- Main Content -->
+        <!-- -->
+      </div>
+    </core-header-panel>
+  </core-drawer-panel>
 
-            <!-- -->
-          </div>
-      </core-header-panel>
-    </core-drawer-panel>
+</template>
 
-  </template>
-
-  <!-- build:js scripts/app.js -->
-  <script src="scripts/app.js"></script>
-  <!-- endbuild-->
+<!-- build:js scripts/app.js -->
+<script src="scripts/app.js"></script>
+<!-- endbuild-->
 </body>
 
 </html>

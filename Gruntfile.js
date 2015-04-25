@@ -36,13 +36,14 @@ module.exports = function (grunt) {
       styles: {
         files: [
           '<%= yeoman.app %>/styles/{,*/}*.css',
+          '<%= yeoman.app %>/fonts/{,*/}*.ttf',
           '<%= yeoman.app %>/elements/{,*/}*.css'
         ],
         tasks: ['copy:styles', 'autoprefixer:server']
       },
       content: {
         files: ['content/**/*.md'],
-        tasks: ['copy:content','m2j:local']
+        tasks: ['metalsmith', 'copy:content']
       }
     },
     autoprefixer: {
@@ -198,6 +199,10 @@ module.exports = function (grunt) {
         }]
       }
     },
+
+    /****
+     * COPY
+     * *****/
     copy: {
       dist: {
         files: [{
@@ -225,18 +230,13 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.app %>',
           dest: '.tmp',
-          src: ['{styles,elements}/{,*/}*.css']
+          src: ['{fonts,styles,elements}/{,*/}*.{css,ttf}']
         }]
       },
       content: {
         files: [{
           expand: true,
-          dot: true,
-          dest: '<%= yeoman.dist %>',
-          src: ['content/**']
-        }, {
-          expand: true,
-          dot: true,
+          cwd: '<%= yeoman.dist %>',
           dest: '.tmp',
           src: ['content/**']
         }]
@@ -271,27 +271,72 @@ module.exports = function (grunt) {
       }
     },
 
-    m2j: {
-      dist: {
+    metalsmith: {
+      articles: {
         options: {
-          minify: true,
-          width: 0
+          metadata: {
+            hello: 'world'
+          },
+          plugins: {
+
+            "metalsmith-filepath": {
+              "absolute": false,
+              "permalinks": false
+            },
+
+            'metalsmith-collections' : {
+              articles: {
+                pattern: 'articles/*.md',
+                sortBy: 'posted',
+                reverse: true
+              },
+              last5articles: {
+                pattern: 'articles/*.md',
+                sortBy: 'posted',
+                reverse: true,
+                limit: 5
+              }
+            },
+
+
+            'metalsmith-markdown' : {
+
+            },
+
+            'metalsmith-writemetadata' : {
+              pattern: ['**/*.md', '**/*.html'],
+              bufferencoding: 'utf8',
+              ignorekeys: ['stats', 'mode'],
+
+              collections: {
+                articles: {
+                  output: {
+                    path: 'articles.json',
+                    asObject: true,
+                    metadata: {
+                      "type": "list"
+                    }
+                  },
+                  ignorekeys: ['contents', 'next', 'previous', 'collection', 'mode', 'stats']
+                },
+                last5articles: {
+                  output: {
+                    path: 'last5articles.json',
+                    asObject: true,
+                    metadata: {
+                      "type": "list"
+                    }
+                  },
+                  ignorekeys: ['contents', 'next', 'previous', 'collection', 'mode', 'stats']
+                }
+              }
+
+            }
+          }
         },
-        files: {
-          '<%= yeoman.dist %>/content/articles.json': ['<%= yeoman.dist %>/content/articles/*.md']
-        }
-      },
-      local: {
-        options: {
-          minify: true,
-          width: 0
-        },
-        files: {
-          '.tmp/content/articles.json': ['.tmp/content/articles/*.md']
-        }
+        src: 'content',
+        dest: '<%= yeoman.dist %>/content'
       }
-
-
     }
 
 
@@ -311,7 +356,7 @@ module.exports = function (grunt) {
       'clean:server',
       'copy:styles',
       'copy:content',
-      'm2j:local',
+      'metalsmith',
       'autoprefixer:server',
       'browserSync:app',
       'watch'
@@ -322,12 +367,12 @@ module.exports = function (grunt) {
   grunt.registerTask('test:local', ['wct-test:local']);
   grunt.registerTask('test:remote', ['wct-test:remote']);
 
-  grunt.registerTask('sandbox', ['m2j:local']);
+  grunt.registerTask('sandbox', ['metalsmith', 'copy:content']);
 
   grunt.registerTask('build', [
     'clean:dist',
     'copy',
-    'm2j',
+    'metalsmith',
     'useminPrepare',
     'imagemin',
     'concat',

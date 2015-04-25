@@ -2,17 +2,36 @@
 
 <polymer-element name="rurri-article" attributes="article">
   <template>
+
+
     <link rel="stylesheet" href="rurri-article.css">
-      <template bind="{{article}}">
-          <h1>{{title}}</h1>
-          <h6>{{posted}}</h6>
-          {{body}}
+    <core-ajax id="markdownRequest"
+               auto
+               url="{{articleUrl}}"
+               handleAs="json"
+               response="{{fullArticle}}">
+    </core-ajax>
+    <article>
+      <h2>{{article.title}}</h2>
+      <h3>{{article.posted}}</h3>
+      <div id="content"></div>
+      <template if="{{fullArticle}}"/>
+        <rurri-safe-html html="{{fullArticle.contents}}"></rurri-safe-html>
       </template>
+    </article>
   </template>
+
   <script>
     (function () {
       Polymer({
+        articleUrl : null,
         // define element prototype here
+        ready: function() {
+        },
+        articleChanged: function() {
+          this.articleUrl = 'content/' + this.article.link.replace('.md', '.json');
+          console.log(this.articleUrl);
+        }
       });
     })();
   </script>

@@ -1,0 +1,14 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="rurri-safe-html" attributes="html">
+  <template>
+    <div id="content"></div>
+  </template>
+  <script>
+    Polymer('rurri-safe-html', {
+      ready: function(){
+        this.$.content.innerHTML = this['html'];
+      }
+    });
+  </script>
+</polymer-element>
