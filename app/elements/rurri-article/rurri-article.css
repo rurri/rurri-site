@@ -10,7 +10,22 @@
 
 a.title {
     text-decoration: none;
+    color: #000;
 }
+
+a.title:hover {
+    color: #40c4ff;
+}
+
+a.title .perma-link {
+    display: none;
+    padding-left: 10px;
+}
+
+a.title:hover .perma-link {
+    display: inline-block;
+}
+
 
 article {
     padding: 10px;
@@ -28,9 +43,7 @@ h2 {
 }
 
 h1, h2, h3, h4, h5 h6 {
-    background: #fafafa;
     font-family: AllerBold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #000;
 }
 
 article time {
