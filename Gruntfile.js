@@ -6,6 +6,7 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
   grunt.loadNpmTasks('web-component-tester');
+  grunt.loadNpmTasks('grunt-aws-s3');
 
   // configurable paths
   var yeomanConfig = {
@@ -351,6 +352,29 @@ module.exports = function (grunt) {
         src: 'content',
         dest: '<%= yeoman.dist %>/content'
       }
+    },
+
+
+    //S3
+
+    aws_s3 : {
+      dist: {
+        options: {
+          bucket : 'rurri.com',
+          maxRetries : 3,
+          uploadConcurrency : 10,
+          downloadConcurrency : 10,
+          copyConcurrency : 10,
+          differential : true,
+          displayChangesOnly : true,
+          progress : 'progressBar',
+
+        },
+        files: [
+          {expand: true, cwd: '<%= yeoman.dist %>', src: ['**'], dest: '/', action:'upload'},
+          {cwd: '<%= yeoman.dist %>', src: ['**'], dest: '/', action:'delete'}
+        ]
+      }
     }
 
 
@@ -382,7 +406,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test:local', ['wct-test:local']);
   grunt.registerTask('test:remote', ['wct-test:remote']);
 
-  grunt.registerTask('sandbox', ['metalsmith', 'copy:content']);
+  grunt.registerTask('sandbox', ['aws_s3']);
 
   grunt.registerTask('build', [
     'clean:dist',
@@ -399,6 +423,10 @@ module.exports = function (grunt) {
     'usemin',
     'replace',
     'minifyHtml'
+  ]);
+
+  grunt.registerTask('deploy', [
+    'aws_s3:dist'
   ]);
 
   grunt.registerTask('default', [
