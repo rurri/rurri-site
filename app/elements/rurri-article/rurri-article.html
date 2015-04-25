@@ -5,33 +5,26 @@
 
 
     <link rel="stylesheet" href="rurri-article.css">
-    <core-ajax id="markdownRequest"
-               auto
-               url="{{articleUrl}}"
-               handleAs="json"
-               response="{{fullArticle}}">
-    </core-ajax>
+
     <article>
-      <h2>{{article.title}}</h2>
-      <h3>{{article.posted}}</h3>
+      <time datetime="2015-04-18" class="article-posted">April 18, 2015</time>
+      <a class="title" href="#/{{articleId}}"><h1 class="title">{{article.title}}</h1></a>
       <div id="content"></div>
-      <template if="{{fullArticle}}"/>
-        <rurri-safe-html html="{{fullArticle.contents}}"></rurri-safe-html>
-      </template>
     </article>
   </template>
 
   <script>
     (function () {
       Polymer({
-        articleUrl : null,
+        isoDate: null,
+        prettyDate: null,
+        article: null,
+        articleId : null,
         // define element prototype here
-        ready: function() {
-        },
         articleChanged: function() {
-          this.articleUrl = 'content/' + this.article.link.replace('.md', '.json');
-          console.log(this.articleUrl);
-        }
+          this.$.content.innerHTML = this.article.contents;
+          this.articleId = this.article.link.replace('.md', '');
+        },
       });
     })();
   </script>

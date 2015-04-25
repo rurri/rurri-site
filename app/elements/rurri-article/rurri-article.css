@@ -3,7 +3,40 @@
 }
 
 @font-face {
-    font-family: DeliciousRoman;
-    src: url(http://www.font-face.com/fonts/delicious/Delicious-Roman.otf);
+    font-family: AllerBold;
+    src: url(../fonts/Aller/Aller_Bd.ttf);
     font-weight:400;
+}
+
+a.title {
+    text-decoration: none;
+}
+
+article {
+    padding: 10px;
+    max-width: 600px;
+}
+
+h1 {
+    font-size: 1.8em;
+}
+
+h2 {
+    font-size: 1.1em;
+
+
+}
+
+h1, h2, h3, h4, h5 h6 {
+    background: #fafafa;
+    font-family: AllerBold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #000;
+}
+
+article time {
+    font-size: 0.6em;
+}
+
+article .title {
+    margin-top: 0px;
 }

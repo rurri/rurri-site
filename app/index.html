@@ -20,6 +20,8 @@
   <link rel="import" href="elements/elements.html">
   <!-- endreplace-->
 
+
+
 </head>
 
 <body unresolved fullbleed layout vertical>
@@ -31,13 +33,15 @@
     <core-header-panel drawer mode="seamed">
 
       <!-- Drawer Toolbar -->
-      <div layout vertical center class="core-header">
-        <rurri-git-avatar username="rurri"></rurri-git-avatar>
-      </div>
+      <!--<div layout vertical center class="core-header">-->
+        <!--<rurri-git-avatar username="rurri"></rurri-git-avatar>-->
+      <!--</div>-->
 
       <!-- Drawer Content -->
       <core-menu selected="0">
-        <core-item label=">_blog"></core-item>
+        <core-item label=">_blog">
+          <a href="#/blog" target="_self"></a>
+        </core-item>
         <core-item label="Projects"></core-item>
         <core-item label="Dashboard"></core-item>
         <core-item label="Reading List"></core-item>
@@ -63,14 +67,40 @@
         </template>
 
 
-        <core-ajax id="myRequest"
-                   auto
-                   url="/content/last5articles.json"
-                   handleAs="json"
-                   response="{{recentArticles}}">
-        </core-ajax>
 
-        <rurri-article article="{{recentArticles['result'][0]}}"></rurri-article>
+        <app-router>
+          <!-- matches everything else -->
+          <app-route path="/articles/:articleId">
+            <!-- Discuss is a bit spoiled, and wants global access, so we keep the fetching of the article
+                 and the tacking on of the discussions out here at the outer level -->
+            <template>
+              <core-ajax id="markdownRequest"
+                         auto
+                         url="content/articles/{{articleId}}.json"
+                         handleAs="json"
+                         response="{{article}}">
+              </core-ajax>
+              <template bind if="{{article}}" ref="article_wrapper"></template>
+            </template>
+          </app-route>
+          <app-route path="/blog">
+            <template>
+              <core-ajax id="myRequest"
+                         auto
+                         url="/content/last5articles.json"
+                         handleAs="json"
+                         response="{{recentArticles}}">
+              </core-ajax>
+              <template if="{{recentArticles}}">
+                <template bind="{{recentArticles.result[0] as article}}" ref="article_wrapper">
+                </template>
+              </template>
+            </template>
+          </app-route>
+        </app-router>
+
+
+
 
         <!-- Main Content -->
 
@@ -79,6 +109,40 @@
     </core-header-panel>
   </core-drawer-panel>
 
+</template>
+
+<template id="article_wrapper">
+  <div horizontal center-justified layout>
+    <div>
+  <rurri-article article="{{article}}"></rurri-article>
+  <div id="disqus_thread"></div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    var disqus_identifier = '{{article.link}}';
+    var disqus_url = 'http://www.rurri.com/#!/articles/{{articleId}}';
+    var disqus_title = '{{article.title}}';
+    var disqus_shortname = 'rurri';
+    if (typeof DISQUS === 'undefined') {
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    } else {
+      DISQUS.reset({
+        reload: true,
+        config: function () {
+          this.page.identifier = disqus_identifier;
+          this.page.url = disqus_url;
+          this.page.title = disqus_title;
+        }
+      });
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 </template>
 
 <!-- build:js scripts/app.js -->

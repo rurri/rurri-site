@@ -327,7 +327,7 @@ module.exports = function (grunt) {
                       "type": "list"
                     }
                   },
-                  ignorekeys: ['contents', 'next', 'previous', 'collection', 'mode', 'stats']
+                  ignorekeys: ['next', 'previous', 'collection', 'mode', 'stats']
                 }
               }
 

@@ -28,6 +28,11 @@ body em {
     color: #333;
 }
 
+#disqus_thread {
+    padding: 10px;
+    max-width: 600px;
+}
+
 .hero-unit {
   margin: 50px auto 0 auto;
   width: 300px;
