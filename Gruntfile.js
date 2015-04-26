@@ -404,6 +404,7 @@ module.exports = function (grunt) {
       'copy:styles',
       'curl',
       'copy:content',
+      'copy:images',
       'metalsmith',
       'autoprefixer:server',
       'browserSync:app',

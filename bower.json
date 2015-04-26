@@ -9,7 +9,8 @@
     "marked": "~0.3.3",
     "disqus-comments": "~0.1.2",
     "app-router": "~2.6.0",
-    "time-elements": "~0.4.0"
+    "time-elements": "~0.4.0",
+    "facebook-comments": "~1.0.1"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^2.2.3"

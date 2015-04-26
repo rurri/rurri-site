@@ -4,7 +4,7 @@
 
 @font-face {
     font-family: AllerBold;
-    src: url(../fonts/Aller/Aller_Bd.ttf);
+    src: url(../../fonts/Aller/Aller_Bd.ttf);
     font-weight:400;
 }
 
@@ -52,4 +52,12 @@ article time {
 
 article .title {
     margin-top: 0px;
+}
+
+#article_wrapper {
+    max-width: 600px;
+}
+
+rurri-article-preview {
+    margin-bottom: 20px;
 }
