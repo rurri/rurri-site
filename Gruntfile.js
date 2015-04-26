@@ -240,7 +240,15 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.dist %>',
           dest: '.tmp',
-          src: ['content/**','images/**, fonts/**']
+          src: ['content/**', 'fonts/**']
+        }]
+      },
+      images: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.dist %>',
+          dest: '.tmp',
+          src: ['images/**']
         }]
       }
     },
@@ -407,7 +415,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test:local', ['wct-test:local']);
   grunt.registerTask('test:remote', ['wct-test:remote']);
 
-  grunt.registerTask('sandbox', ['aws_s3']);
+  grunt.registerTask('sandbox', ['copy:images']);
 
   grunt.registerTask('build', [
     'clean:dist',
