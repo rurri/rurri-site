@@ -127,6 +127,7 @@
     <div id="article_wrapper">
       <rurri-article article="{{article}}"></rurri-article>
       <template if="{{article.next}}">
+        <div class="next-header">Other Reading:</div>
         <rurri-article-preview article="{{article.next}}"></rurri-article-preview>
       </template>
       <div id="disqus_thread"></div>

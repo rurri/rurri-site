@@ -29,6 +29,7 @@ body em {
 }
 
 #disqus_thread {
+    margin-top: 30px;
     padding: 10px;
 }
 
@@ -68,4 +69,8 @@ body em {
 core-toolbar {
   color: #FAFAFA;
   background-color: #009688;
+}
+
+.next-header {
+    margin-bottom: 10px;
 }
