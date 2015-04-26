@@ -10,6 +10,9 @@
         <article>
           <time is="relative-time" datetime="{{article.posted}}"></time>
           <a class="title" href="#/{{articleId}}"><h1 class="title">{{article.title}}<core-icon class="perma-link" icon="fa:link"></core-icon></h1></a>
+          <template if="{{article.vimeo_video}}">
+            <iframe src="https://player.vimeo.com/video/{{article.vimeo_video}}?color=ffffff" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </template>
           <div id="content"></div>
           <template if="{{article.next}}">
             <div class="next-header">Other Reading:</div>
