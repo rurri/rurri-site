@@ -217,7 +217,8 @@ module.exports = function (grunt) {
             '*.html',
             'elements/**',
             '!elements/**/*.css',
-            'images/{,*/}*.{webp,gif}'
+            'images/{,*/}*.{webp,gif}',
+            'fonts/**/*.ttf'
           ]
         }, {
           expand: true,
@@ -239,7 +240,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.dist %>',
           dest: '.tmp',
-          src: ['content/**','images/**']
+          src: ['content/**','images/**, fonts/**']
         }]
       }
     },
