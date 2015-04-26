@@ -68,10 +68,9 @@
 
 
         <app-router>
-          <!-- matches everything else -->
+
+          <!-- Single Article -->
           <app-route path="/articles/:articleId">
-            <!-- Discuss is a bit spoiled, and wants global access, so we keep the fetching of the article
-                 and the tacking on of the discussions out here at the outer level -->
             <template>
               <core-ajax id="markdownRequest"
                          auto
@@ -82,6 +81,8 @@
               <template bind if="{{article}}" ref="article"></template>
             </template>
           </app-route>
+
+          <!-- Article List -->
           <app-route path="/blog">
             <template>
               <core-ajax id="myRequest"
@@ -94,10 +95,9 @@
                 <rurri-article-list articles="{{allArticles.result}}"></rurri-article-list>
               </template>
             </template>
-
-
           </app-route>
 
+          <!-- Home-->
           <app-route path="/">
             <template>
               <core-ajax id="myRequest"
@@ -114,16 +114,14 @@
           </app-route>
 
         </app-router>
-
-        <!-- Main Content -->
-
-        <!-- -->
       </div>
     </core-header-panel>
   </core-drawer-panel>
 
 </template>
 
+<!-- Discuss is a bit greedy, and wants global access, so we keep the fetching of the article
+     and the tacking on of the discussions out here at the outer level -->
 <template id="article">
   <div horizontal center-justified layout>
     <div id="article_wrapper">
