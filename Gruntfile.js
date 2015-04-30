@@ -381,7 +381,7 @@ module.exports = function (grunt) {
         },
         files: [
           {expand: true, cwd: '<%= yeoman.dist %>', src: ['**'], dest: '/', action:'upload'},
-          {cwd: '<%= yeoman.dist %>', src: ['**'], dest: '/', action:'delete'}
+          //{cwd: '<%= yeoman.dist %>', src: ['**'], dest: '/', action:'delete'}
         ]
       }
     }
