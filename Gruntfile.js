@@ -429,7 +429,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('deploy', [
-    'build',
     'aws_s3:dist'
   ]);
 
