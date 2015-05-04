@@ -1,0 +1,77 @@
+<polymer-element name="app-router-analytics" attributes="trackingId mode">
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  </script>
+  <script>
+    (function () {
+      Polymer('app-router-analytics', {
+        /**
+         * The google analytics tracking id. Example: UA-1234567890-1
+         *
+         * This attribute is the only required attribute for this element to work propoerly
+         *
+         * @attribute trackingId
+         * @type string
+         * @default null
+         */
+        trackingId : null,
+
+        /**
+         * One of: hash, hashbang, raw
+         *
+         * Determines how page urls should be reported to google. Default is hash, meaning /blog will be reported as /#/blog
+         * Other options are hashbang, reported as /#!/blog
+         * And raw, reported as /blog
+         *
+         * Optional, defaults to hash
+         *
+         * @attribute mode
+         * @type string
+         * @default hash
+         */
+        mode: 'hash',
+
+        ready: function() {
+          //Warn if no trackingId is set, otherwise setup analytics with the trackingId provided
+          if (!this.trackingId) {
+            console.log("Attribute 'trackingId' required for analytics")
+          } else {
+            ga('create', this.trackingId, 'auto');
+          }
+
+          //In order to be able to respond to the initial routing event on the initial page load, we have to
+          //to get a listener into the body. So once we are ready to go we add a core-signals element to the body
+          //to respond to events.
+          this.signals = document.createElement('core-signals');
+          document.body.appendChild(this.signals);
+
+          //Register a listener for route-end onto the global event core-signals listener
+          //When the route-end event is received, let google analytics know about it
+          var analyticsElement = this;
+          this.signals.addEventListener('core-signal-activate-route-end', function(event) {
+            var path = '';
+            if (event.detail.path == '/') {
+              //If we are at the root path don't append any hash or hashbang
+              path = '/';
+            } else if (analyticsElement.mode == 'hash') {
+              //If mode is hash (default) prepend a hash
+              path = '/#' + event.detail.path;
+            } else if (analyticsElement.mode == 'hashbang') {
+              //If mode is hashbang prepend a hashbang
+              path = '/#!' + event.detail.path;
+            } else {
+              //Othwerise don't prepend anything (raw)
+              path = event.detail.path;
+            }
+
+            //On each activate-route-end event publish to analytics a new pageview based on the path
+            ga('send', 'pageview', path);
+          });
+        }
+      });
+    })();
+  </script>
+</polymer-element>
