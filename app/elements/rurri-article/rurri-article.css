@@ -58,6 +58,10 @@ article .title {
     max-width: 600px;
 }
 
+#article_wrapper img {
+    width: 600px;
+}
+
 rurri-article-preview {
     margin-bottom: 20px;
 }
