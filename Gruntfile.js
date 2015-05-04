@@ -298,7 +298,6 @@ module.exports = function (grunt) {
             hello: 'world'
           },
           plugins: {
-
             "metalsmith-filepath": {
               "absolute": false,
               "permalinks": false
@@ -317,16 +316,11 @@ module.exports = function (grunt) {
                 limit: 5
               }
             },
-
-
             'metalsmith-markdown' : {
-
             },
 
             "metalsmith-excerpts": {
-
             },
-
             'metalsmith-writemetadata' : {
               pattern: ['**/*.md', '**/*.html'],
               bufferencoding: 'utf8',
