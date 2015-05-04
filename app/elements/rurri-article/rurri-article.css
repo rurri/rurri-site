@@ -29,6 +29,7 @@ a.title:hover .perma-link {
 
 article {
     padding: 10px;
+    color: #000;
 
 }
 
@@ -44,6 +45,7 @@ h2 {
 
 h1, h2, h3, h4, h5 h6 {
     font-family: AllerBold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #000;
 }
 
 article time {
@@ -61,6 +63,17 @@ article .title {
 #article_wrapper img {
     width: 600px;
 }
+
+code {
+}
+
+pre {
+    background-color: #E1F5FE;
+    padding: 10px;
+    overflow: visible;
+}
+
+
 
 rurri-article-preview {
     margin-bottom: 20px;
