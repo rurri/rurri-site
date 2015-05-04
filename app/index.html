@@ -65,18 +65,17 @@
         </template>
 
 
-
-        <app-router>
+        <app-router id="app_router">
 
           <!-- Single Article -->
           <app-route path="/articles/:articleId">
             <template>
-              <core-ajax id="markdownRequest"
-                         auto
-                         url="content/articles/{{articleId}}.json"
-                         handleAs="json"
-                         response="{{article}}">
-              </core-ajax>
+<core-ajax id="markdownRequest"
+           auto
+           url="content/articles/{{articleId}}.json"
+           handleAs="json"
+           response="{{article}}">
+</core-ajax>
               <rurri-article article="{{article}}"></rurri-article>
             </template>
           </app-route>
@@ -84,12 +83,12 @@
           <!-- Article List -->
           <app-route path="/blog">
             <template>
-              <core-ajax id="myRequest"
-                         auto
-                         url="/content/articles.json"
-                         handleAs="json"
-                         response="{{allArticles}}">
-              </core-ajax>
+<core-ajax id="myRequest"
+           auto
+           url="/content/articles.json"
+           handleAs="json"
+           response="{{allArticles}}">
+</core-ajax>
               <template if="{{allArticles}}">
                 <rurri-article-list articles="{{allArticles.result}}"></rurri-article-list>
               </template>
@@ -111,6 +110,7 @@
             </template>
           </app-route>
         </app-router>
+        <app-router-analytics id="google_analytics" trackingId="UA-29653765-1"></app-router-analytics>
       </div>
     </core-header-panel>
   </core-drawer-panel>
