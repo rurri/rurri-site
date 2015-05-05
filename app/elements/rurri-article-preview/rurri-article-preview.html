@@ -6,22 +6,27 @@
 
     <div class="article-preview">
       <paper-shadow id="card_shadow">
-        <div class="article-preview-card" on-mouseover='{{onHovered}}' on-mouseout='{{onUnhovered}}'>
         <a href="#/{{link}}">
-          <div horizontal wrap layout>
-            <div><h1 class="title">{{article.title}}</h1></div>
-            <div flex></div>
+          <div vertical layout class="article-preview-card" on-mouseover='{{onHovered}}' on-mouseout='{{onUnhovered}}'>
+            <div horizontal wrap layout>
+              <div><h1 class="title">{{article.title}}</h1></div>
+              <div flex></div>
+              <div>
+                <time is="time-ago" datetime="{{article.posted}}">
+                </time>
+              </div>
+            </div>
+            <div flex id="content"></div>
             <div>
-              <time is="time-ago" datetime="{{article.posted}}">
-              </time></div>
-          </div>
-          <div id="content"></div>
-          <div horizontal center-justified layout>
-            <core-icon class="perma-link" icon="fa:ellipsis-h"></core-icon>
+              <div horizontal center-justified layout>
+                <core-icon class="perma-link" icon="fa:ellipsis-h"></core-icon>
+              </div>
+            </div>
           </div>
         </a>
       </paper-shadow>
     </div>
+
 
   </template>
   <script>

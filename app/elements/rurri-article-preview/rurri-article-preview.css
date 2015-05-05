@@ -8,6 +8,7 @@
 
 .article-preview-card {
     padding: 15px;
+    min-height: 120px;
 }
 
 .article-preview .title {
