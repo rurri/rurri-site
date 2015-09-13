@@ -324,7 +324,8 @@ module.exports = function (grunt) {
             'metalsmith-writemetadata' : {
               pattern: ['**/*.md', '**/*.html'],
               bufferencoding: 'utf8',
-              ignorekeys: ['stats', 'mode'],
+              ignorekeys: ['stats', 'mode', 'next.next', 'collection'],
+              childIgnorekeys: ['next', 'previous'],
 
               collections: {
                 articles: {
@@ -345,7 +346,7 @@ module.exports = function (grunt) {
                       "type": "list"
                     }
                   },
-                  ignorekeys: ['collection', 'mode', 'stats']
+                  ignorekeys: ['next', 'previous', 'collection', 'mode', 'stats']
                 }
               }
 
